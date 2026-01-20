@@ -18,7 +18,7 @@ import { Input } from "@/app/components/ui/input"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { createAccount } from "@/lib/actions/user.actions"
+import { createAccount, signInUser } from "@/lib/actions/user.actions"
 import OTPModal from "./OTPModal"
 
 
@@ -32,6 +32,7 @@ const authFormSchema = (type: FormType) => {
 }
 
 const AuthForm = ({ type }: { type: FormType }) => {
+    const isSignUp = type === "sign-up";
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [accountId, setAccountId] = useState("");
@@ -50,12 +51,12 @@ const AuthForm = ({ type }: { type: FormType }) => {
         setErrorMessage("");
 
         try {
-            const user = await createAccount(
-                {
+            const user = isSignUp
+                ? await createAccount({
                     email: values.email,
-                    fullName: values.fullName || "" ,
-                }
-            );
+                    fullName: values.fullName || "",
+                })
+                : await signInUser({ email: values.email });
 
             setAccountId(user.accountId);
 
@@ -72,8 +73,8 @@ const AuthForm = ({ type }: { type: FormType }) => {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
 
-                    <h1 className="form-title">{type === "sign-in" ? "Sign in" : "Sign up"}</h1>
-                    {type === "sign-up" && <FormField
+                    <h1 className="form-title">{isSignUp ? "Sign up" : "Sign in"}</h1>
+                    {isSignUp && <FormField
                         control={form.control}
                         name="fullName"
                         render={({ field }) => (
@@ -128,7 +129,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
                     </div>
                 </form>
             </Form>
-            {!accountId && console.log("No accountId")}
             {accountId && <OTPModal email={form.getValues("email")} accountId={accountId} />}
         </>
     );

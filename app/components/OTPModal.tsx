@@ -35,19 +35,25 @@ const OTPModel = ({ email, accountId }: { email: string, accountId: string }) =>
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setIsLoading(true);
+
+        console.log({ accountId, password });
+
         try {
             const sessionId = await verifySecret({ accountId, password });
+
+            console.log({ sessionId });
+
             if (sessionId) router.push("/");
         } catch (error) {
-            console.log("Failed to create account", error);
-        } finally {
-            setIsLoading(false);
+            console.log("Failed to verify OTP", error);
         }
-    }
+
+        setIsLoading(false);
+    };
 
     const handleResendOTP = async () => {
         await sendEmailOTP({ email });
-    }
+    };
 
     return (
         <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
@@ -68,7 +74,7 @@ const OTPModel = ({ email, accountId }: { email: string, accountId: string }) =>
                         We have sent a code to your <span className="pl-1 text-brand">{email}</span>
                     </AlertDialogDescription>
                 </AlertDialogHeader>
-                <InputOTP maxLength={6}>
+                <InputOTP maxLength={6} value={password} onChange={setPassword}>
                     <InputOTPGroup className="shad-otp">
                         <InputOTPSlot index={0} className="shad-otp-slot" />
                         <InputOTPSlot index={1} className="shad-otp-slot" />
