@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
 
-const MobileNavigation = ({avatar, fullName, email}: {avatar: string, fullName: string, email: string}) => {
+const MobileNavigation = ({ avatar, fullName, email }: { avatar: string, fullName: string, email: string }) => {
 
     const [open, setOpen] = useState(false);
     const pathName = usePathname();
@@ -58,26 +58,24 @@ const MobileNavigation = ({avatar, fullName, email}: {avatar: string, fullName: 
                                     <p className="subtitle-2 capitalize">{fullName}</p>
                                     <p className="caption">{email}</p>
                                 </div>
-                            </div> 
+                            </div>
                             <Separator className="mb-4 bg-light-200/20"/>
                         </SheetTitle>
                         <nav>
                             <ul className="mobile-nav-list">
                                 {navItems.map(({icon, name, url}) => (
-                                    <li key={name}>
-                                        <Link key={name} href={url} className="lg-w-full">
-                                            <li className={cn("mobile-nav-item", pathName === url && "shad-active")}>
-                                                <Image 
-                                                    src={icon} 
-                                                    alt={name} 
-                                                    width={24} 
-                                                    height={24}
-                                                    className={cn("nav-icon", pathName === url && "nav-icon-active")}
-                                                />
-                                                <p>{name}</p>       
-                                            </li>
-                                        </Link>
-                                    </li>
+                                    <Link key={name} href={url} className="lg-w-full">
+                                        <li className={cn("mobile-nav-item", pathName === url && "shad-active")}>
+                                            <Image
+                                                src={icon}
+                                                alt={name}
+                                                width={24}
+                                                height={24}
+                                                className={cn("nav-icon", pathName === url && "nav-icon-active")}
+                                            />
+                                            <p>{name}</p>
+                                        </li>
+                                    </Link>
                                 ))}
                             </ul>
                         </nav>
@@ -85,10 +83,10 @@ const MobileNavigation = ({avatar, fullName, email}: {avatar: string, fullName: 
                         <div className="flex flex-col justify-between gap-5">
                             <FileUploader />
                             <Button type="submit" className="mobile-sign-out-button" onClick={async () => await signOutUser()}>
-                                <Image 
-                                    src="assets/icons/logout.svg" 
-                                    alt="logout" 
-                                    width={24} 
+                                <Image
+                                    src="assets/icons/logout.svg"
+                                    alt="logout"
+                                    width={24}
                                     height={24}
                                     className="w-6"
                                 />
