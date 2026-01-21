@@ -6,15 +6,50 @@ import { Button } from './ui/button'
 import Image from 'next/image'
 import { cn, convertFileToUrl, getFileType } from '@/lib/utils'
 import Thumbnail from './Thumbnail'
-
+import { MAX_FILE_SIZE } from '@/constants'
+import { uploadFile } from '@/lib/actions/file.actions'
+import { toast } from "sonner"
+import { usePathname } from 'next/navigation'
 
 const FileUploader = ({ ownerId, accountId, className }: { ownerId: string, accountId: string, className?: string }) => {
 
     const [files, setFiles] = useState<File[]>([]);
+    const path = usePathname();
+    
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
         setFiles(acceptedFiles);
-    }, [])
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+        const uploadPromises = acceptedFiles.map(async (file) => {
+            if (file.size > MAX_FILE_SIZE) {
+                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== file.name));
+
+                return toast.error("File size exceeds the limit.", {
+                    classNames: {
+                        toast: "!bg-brand",
+                        description: "body-2 text-white",
+                        title: "font-semibold !text-white",
+                        icon: "!text-white",
+                    },
+                    description: (
+                        <>
+                            <span className="font-semibold">{file.name}</span> is too large.
+                            Max file size is {MAX_FILE_SIZE / 1024 / 1024} MB.
+                        </>
+                    )
+                })
+            }
+
+            return uploadFile({ file, ownerId, accountId, path }).then((uploadedFile) => {
+                if (uploadedFile) {
+                    setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+                }
+            });
+        });
+
+        const uploadedFiles = await Promise.all(uploadPromises);
+
+    }, [ownerId, accountId, path])
+    const { getRootProps, getInputProps} = useDropzone({ onDrop })
 
     const handleRemoveFile = (e: React.MouseEvent<HTMLImageElement, MouseEvent>, fileName: string) => {
         e.stopPropagation();
@@ -70,11 +105,6 @@ const FileUploader = ({ ownerId, accountId, className }: { ownerId: string, acco
                     )
                 })}
             </ul>}
-            {
-                isDragActive ?
-                    <p>Drop the files here ...</p> :
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-            }
         </div>
     )
 }

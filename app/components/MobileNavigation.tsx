@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 import FileUploader from "./FileUploader";
 import { signOutUser } from "@/lib/actions/user.actions";
 
-const MobileNavigation = ({ avatar, fullName, email }: { avatar: string, fullName: string, email: string }) => {
+const MobileNavigation = ({ $id: ownerId, accountId, avatar, fullName, email }: { $id: string, accountId: string, avatar: string, fullName: string, email: string }) => {
 
     const [open, setOpen] = useState(false);
     const pathName = usePathname();
@@ -81,7 +81,7 @@ const MobileNavigation = ({ avatar, fullName, email }: { avatar: string, fullNam
                         </nav>
                         <Separator className="mb-4 bg-light-200/20"/>
                         <div className="flex flex-col justify-between gap-5">
-                            <FileUploader />
+                            <FileUploader ownerId={ownerId} accountId={accountId}/>
                             <Button type="submit" className="mobile-sign-out-button" onClick={async () => await signOutUser()}>
                                 <Image
                                     src="assets/icons/logout.svg"
