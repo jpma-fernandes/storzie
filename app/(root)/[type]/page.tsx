@@ -3,11 +3,17 @@ import Card from "@/app/components/Card";
 import Sort from "@/app/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
-import { convertFileSize } from "@/lib/utils";
+import { convertFileSize, getFileTypesParams } from "@/lib/utils";
 
-const Page = async ({params}: SearchParamProps) => {
+const Page = async ({params, searchParams}: SearchParamProps) => {
     const type = ((await params)?.type as string) || "";
-    const files = await getFiles();
+    const searchText = ((await searchParams)?.query as string) || "";
+    const sort = ((await searchParams)?.sort as string) || "";
+
+
+    const types = getFileTypesParams(type) as FileType[];
+
+    const files = await getFiles({types, searchText, sort});
 
     const totalSize = files.documents.reduce(
         (sum: number, file: Models.Document) => sum + file.size, 0

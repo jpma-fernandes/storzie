@@ -46,6 +46,7 @@
 ### 🐛 Bugs to Fix
 - [ ] When clicking an action on the ActionDropdown, a model opens, but when closing it everything on the app becomes unclickable
 - [ ] The Submit button on all action in ActionDropdown is too large on all devices besides small screens
+- [ ] When clicking any files we are redirected to a 404 page
 
 ### ✨ Future Improvements
 - [ ] 
