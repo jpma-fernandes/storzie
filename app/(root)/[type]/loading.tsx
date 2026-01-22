@@ -21,7 +21,7 @@ const Loading = () => {
                 {Array.from({ length: 8 }).map((_, index) => (
                     <div
                         key={index}
-                        className="flex flex-col gap-6 rounded-[18px] bg-white p-5 shadow-sm"
+                        className="flex flex-col gap-6 rounded-[18px] bg-white p-10 shadow-sm"
                     >
                         {/* Card header */}
                         <div className="flex justify-between">
