@@ -31,22 +31,22 @@
 - [x] Error handling
 
 ### 🔍 Search & Filter
-- [ ] Global search
-- [ ] Sort by date
-- [ ] Sort by name
-- [ ] Sort by size
-- [ ] Filter by type
+- [x] Global search
+- [x] Sort by date
+- [x] Sort by name
+- [x] Sort by size
+- [x] Filter by type
 
 ### 📊 Dashboard Features
-- [ ] Total storage usage
-- [ ] Storage by file type
-- [ ] Recent uploads
-- [ ] File type summary
+- [x] Total storage usage
+- [x] Storage by file type
+- [x] Recent uploads
+- [x] File type summary
 
 ### 🐛 Bugs to Fix
-- [ ] When clicking an action on the ActionDropdown, a model opens, but when closing it everything on the app becomes unclickable
-- [ ] The Submit button on all action in ActionDropdown is too large on all devices besides small screens
-- [ ] When clicking any files we are redirected to a 404 page
+- [x] When clicking an action on the ActionDropdown, a model opens, but when closing it everything on the app becomes unclickable
+- [] The Submit button on all action in ActionDropdown is too large on all devices besides small screens
+- [x] When clicking any files we are redirected to a 404 page
 
 ### ✨ Future Improvements
 - [ ] 

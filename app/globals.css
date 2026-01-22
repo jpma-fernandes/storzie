@@ -306,7 +306,7 @@
   }
 
   .modal-submit-button {
-    @apply primary-btn !mx-0 h-[52px] w-full flex-1 !important;
+    @apply primary-btn !mx-0 h-[52px] sm:h-[36px] w-full sm:max-w-[160px] !important;
   }
 
   /* ActionsModalContent */
