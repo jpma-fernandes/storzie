@@ -4,10 +4,10 @@ const Loading = () => {
             {/* Left section: Chart + Summary Cards */}
             <section>
                 {/* Chart skeleton */}
-                <div className="flex items-center rounded-[20px] bg-brand/20 p-2 md:flex-col xl:flex-row">
+                <div className="flex items-center rounded-[20px] bg-brand/20 p-2 md:flex-col xl:flex-row pl-12">
                     {/* Radial chart placeholder */}
                     <div className="mx-auto flex size-[180px] items-center justify-center xl:size-[200px]">
-                        <div className="relative flex size-[140px] items-center justify-center rounded-full border-[12px] border-light-300/30 bg-transparent">
+                        <div className="relative flex size-[180px] items-center justify-center rounded-full border-[12px] border-light-300/30 bg-transparent">
                             <div className="flex flex-col items-center">
                                 <div className="h-8 w-12 animate-pulse rounded bg-light-300/50" />
                                 <div className="mt-2 h-4 w-16 animate-pulse rounded bg-light-300/30" />
